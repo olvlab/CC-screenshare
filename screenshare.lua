@@ -89,20 +89,20 @@ elseif args[1] == "view" then
     if id then
      if msg then
       msg = textutils.unserialise(msg)
-	  if msg.type == "write" then
+      if msg.type == "write" then
        local bg, fg = term.getBackgroundColor(), term.getTextColor()
        term.setBackgroundColor(msg.bg) term.setTextColor(msg.fg)
-       print(msg.text)
+       term.write(msg.text)
        term.setBackgroundColor(bg) term.setTextColor(fg)
-	  elseif msg.type == "blit" then
-	   term.blit(msg.text,msg.bg,msg.fg)
-	  elseif msg.type == "clear" then
-	   term.clear()
-	  elseif msg.type == "setCursorPos" then
-	   term.setCursorPos(msg.x,msg.y)
-	  elseif msg.type == "scroll" then
-	   term.scroll(msg.n)
-	  end
+      elseif msg.type == "blit" then
+       term.blit(msg.text,msg.bg,msg.fg)
+      elseif msg.type == "clear" then
+       term.clear()
+      elseif msg.type == "setCursorPos" then
+       term.setCursorPos(msg.x,msg.y)
+      elseif msg.type == "scroll" then
+       term.scroll(msg.n)
+      end
      end
     else
      viewing = false
