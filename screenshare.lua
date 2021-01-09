@@ -61,9 +61,11 @@ elseif args[1] == "start" then
  
  local oldscroll = term.scroll
  term.scroll = function(n)
-  type = "scroll",
-  n = n,
-  return oldscroll(y)
+  rednet.broadcast(textutils.serialise({
+   type = "scroll",
+   n = n
+  }),"olvScreenshare")
+  return oldscroll(n)
  end
  _G.oSSRestore = function() _G.write = oldwrite term.blit = oldblit term.clear = oldclear term.setCursorPos = oldcpos term.scroll = oldscroll end
  print("Started screenshare as "..os.getComputerID())
