@@ -27,7 +27,7 @@ elseif args[1] == "start" then
    bg = term.getBackgroundColor(),
    fg = term.getTextColor()
   }),"olvScreenshare")
-  return oldwrite(text)
+  return oldwrite(sText)
  end
  
  local oldblit = term.blit
@@ -85,7 +85,7 @@ elseif args[1] == "view" then
   term.setCursorPos(1,1)
   parallel.waitForAll(
    function() while viewing do
-    local id, msg, ptc = rednet.receive("olvScreenshare",5)
+    local id, msg, ptc = rednet.receive("olvScreenshare")
     if id then
      if msg then
       msg = textutils.unserialise(msg)
