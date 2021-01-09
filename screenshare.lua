@@ -17,26 +17,33 @@ if not args[1] or args[1] == "help" then
   screenshare [help]: display this text
   screenshare start: start a screenshare
   screenshare stop: stop a screenshare
-  screenshare view <id>: view someone's screenshare]])
+  screenshare view <id>: view someone's screenshare
+    Press Backspace to exit a screenshare.]])
 elseif args[1] == "start" then
  local oldwrite = _G.write
  _G.write = function(sText)
+  local cx, cy = term.getCursorPos()
   rednet.broadcast(textutils.serialise({
    type = "write",
    text = sText,
    bg = term.getBackgroundColor(),
-   fg = term.getTextColor()
+   fg = term.getTextColor(),
+   x = cx,
+   y = cy
   }),"olvScreenshare")
   return oldwrite(sText)
  end
  
  local oldblit = term.blit
  term.blit = function(sText, bg, fg)
+  local cx, cy = term.getCursorPos()
   rednet.broadcast(textutils.serialise({
    type = "blit",
    text = text,
    bg = bg,
-   fg = fg
+   fg = fg,
+   x = cx,
+   y = cy
   }),"olvScreenshare")
   return oldblit(sText, bg, fg)
  end
@@ -47,16 +54,6 @@ elseif args[1] == "start" then
    type = "clear"
   }),"olvScreenshare")
   return oldclear()
- end
- 
- local oldcpos = term.setCursorPos
- term.setCursorPos = function(x, y)
-  rednet.broadcast(textutils.serialise({
-   type = "setCursorPos",
-   x = x,
-   y = y
-  }),"olvScreenshare")
-  return oldcpos(x, y)
  end
  
  local oldscroll = term.scroll
@@ -83,7 +80,7 @@ elseif args[1] == "view" then
   local obg, ofg = term.getBackgroundColor(), term.getTextColor()
   term.clear()
   term.setCursorPos(1,1)
-  parallel.waitForAll(
+  parallel.waitForAny(
    function() while viewing do
     local id, msg, ptc = rednet.receive("olvScreenshare")
     if id then
@@ -91,15 +88,15 @@ elseif args[1] == "view" then
       msg = textutils.unserialise(msg)
       if msg.type == "write" then
        local bg, fg = term.getBackgroundColor(), term.getTextColor()
+       term.setCursorPos(msg.x,msg.y)
        term.setBackgroundColor(msg.bg) term.setTextColor(msg.fg)
        term.write(msg.text)
        term.setBackgroundColor(bg) term.setTextColor(fg)
       elseif msg.type == "blit" then
+       term.setCursorPos(msg.x,msg.y)
        term.blit(msg.text,msg.bg,msg.fg)
       elseif msg.type == "clear" then
        term.clear()
-      elseif msg.type == "setCursorPos" then
-       term.setCursorPos(msg.x,msg.y)
       elseif msg.type == "scroll" then
        term.scroll(msg.n)
       end
