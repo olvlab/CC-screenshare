@@ -60,9 +60,9 @@ elseif args[1] == "start" then
  end
  
  local oldscroll = term.scroll
- term.scroll = function(y)
+ term.scroll = function(n)
   type = "scroll",
-  y = y,
+  n = n,
   return oldscroll(y)
  end
  _G.oSSRestore = function() _G.write = oldwrite term.blit = oldblit term.clear = oldclear term.setCursorPos = oldcpos term.scroll = oldscroll end
@@ -99,7 +99,7 @@ elseif args[1] == "view" then
 	  elseif msg.type == "setCursorPos" then
 	   term.setCursorPos(msg.x,msg.y)
 	  elseif msg.type == "scroll" then
-	   term.scroll(msg.y)
+	   term.scroll(msg.n)
 	  end
      end
     else
