@@ -64,7 +64,7 @@ elseif args[1] == "start" then
   }),"olvScreenshare")
   return oldscroll(n)
  end
- _G.oSSRestore = function() _G.write = oldwrite term.blit = oldblit term.clear = oldclear term.setCursorPos = oldcpos term.scroll = oldscroll end
+ _G.oSSRestore = function() _G.write = oldwrite term.blit = oldblit term.clear = oldclear term.scroll = oldscroll end
  print("Started screenshare as "..os.getComputerID())
 elseif args[1] == "stop" then
  if _G.oSSRestore then
