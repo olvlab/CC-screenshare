@@ -39,7 +39,7 @@ elseif args[1] == "start" then
   local cx, cy = term.getCursorPos()
   rednet.broadcast(textutils.serialise({
    type = "blit",
-   text = text,
+   text = sText,
    bg = bg,
    fg = fg,
    x = cx,
