@@ -2,7 +2,7 @@
 A not-so-good screen share method via rednet.
 
 # Download
-Preparing
+wget https://raw.githubusercontent.com/olvlab/screenshare/main/screenshare.lua?token=ALEFG4T2TT6IBYECDFJ2MAS77ITII
 
 # Usage
 screenshare (help): Display commands and their usage
