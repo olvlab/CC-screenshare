@@ -1,8 +1,9 @@
 # screenshare
 A not-so-good screen share method via rednet.
+To be honest, not even sure if it works.
 
 # Download
-wget https://raw.githubusercontent.com/olvlab/screenshare/main/screenshare.lua?token=ALEFG4T2TT6IBYECDFJ2MAS77ITII
+wget https://raw.githubusercontent.com/olvlab/screenshare/main/screenshare.lua
 
 # Usage
 screenshare (help): Display commands and their usage
