@@ -1,6 +1,7 @@
-# screenshare
+# screenshare dev
+## This is an unfinished program.
 A not-so-good screen share method via rednet.
-To be honest, not even sure if it works.
+To be honest, not even sure if it works. Been a long time since I've been working on it.
 
 # Download
 wget https://raw.githubusercontent.com/olvlab/screenshare/main/screenshare.lua
