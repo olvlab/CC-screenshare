@@ -4,7 +4,7 @@ A not-so-good screen share method via rednet.
 Works, but barely.
 
 ## Download
-wget https://raw.githubusercontent.com/olvlab/screenshare/main/screenshare.lua
+wget https://raw.githubusercontent.com/olvlab/CC-screenshare/main/screenshare.lua
 
 ## Usage
 screenshare [help/start/stop/view id]
